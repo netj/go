@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# error -- show error message
+
+code=$1; shift
+echo "go: $@" >&2
+exit $code

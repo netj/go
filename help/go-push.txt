@@ -1,0 +1,7 @@
+Description: Send updates to friends
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+push -- Send updated contents to friends.
+
+Usage: go push [PEER...]

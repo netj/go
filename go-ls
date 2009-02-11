@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# go ls -- list peers
+set -e
+
+. at-root
+
+# TODO: take arguments
+for d in .go/local/*; do
+    [ -d "$d" -a ! -L "$d" ] || continue
+    [ -e "$d/id_rsa" -o -e "$d/authorized_keys" ] || continue
+    peer=$d
+    peer=${peer#.go/local/}
+    echo "$peer"
+done

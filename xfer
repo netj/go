@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# xfer -- transfer driver -- call rsync with common options
+set -e
+
+. at-root
+opts=()
+
+# prepare verbosity options
+be-quiet 1 || opts=("${opts[@]}" --verbose)
+be-quiet 2 || opts=("${opts[@]}" --progress)
+
+# let rsync handle the rest
+be-quiet 4 || set -x
+exec rsync --archive --hard-links --omit-dir-times --fuzzy --rsh=tell \
+    --temp-dir=.go/local/.rsync.tmp --exclude=.go/local \
+    --filter='. .go/rules' "${opts[@]}" --relative "$@"
+# TODO: we might need a timeout: --timeout=300 \
+# XXX: not working as expected: --partial-dir=.go.tmp --delay-updates \

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# go set -- send selected data to last peer
+set -e
+
+. at-root
+. want-paths+peer
+
+msg 1 "setting $peer ..."
+msg 3 " $*"
+xfer --delete-after "${paths[@]}" $peer:.

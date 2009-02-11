@@ -1,0 +1,13 @@
+* help: usages + intro
+* interactive `go init`
+* touch 문제
+
+* go diff
+* go sync
+
+* reader/writer lock
+* rsync security
+
+* self tests
+* go ls arg*
+* transactional xfer (rsync --delay-updates)

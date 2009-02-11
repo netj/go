@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# index-command-helps -- list commands with short description
+# Author: Jaeho Shin <netj@sparcs.org>
+# Created: 2009-01-23
+
+helproot=$1; shift
+
+header() { sed -n '1,/^$/p' | grep "^$1:" | sed "s:^$1\\: *::"; }
+
+cat <<EOF
+Indexed: `date +%Y-%m-%d`
+
+COMMAND is one of the following:
+EOF
+for cmd in "$@"; do
+    help="$helproot/go-$cmd.txt"
+    desc=
+    [ -r "$help" ] && desc=`header Description <"$help"`
+    printf "   %-12s %s\n" "${cmd#go-}" "$desc"
+done

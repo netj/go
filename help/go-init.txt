@@ -1,0 +1,5 @@
+Description: Create a new repository
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+init -- Create and initialize a new go repository.

@@ -1,0 +1,11 @@
+Description: Receive partial updates from best friend
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+get -- Receive updates of given files from our best friend.
+
+Usage: go get [PATH...]
+
+  If PATH is omitted, the working directory will be used.
+
+See also: go pull

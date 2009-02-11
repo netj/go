@@ -1,0 +1,17 @@
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+Subject: A Gentle Introduction to go/고/庫
+vim: tw=72
+
+go/고/庫 lets you synchronize contents of multiple go repositories.  A
+go repository is a directory where you have run `go init`.  Under a go
+repository, you can either `go push` to send all updated contents to
+other repositories, or `go pull` to receive all updates from others.
+Repositories must first `go friends` with each other in order to keep in
+touch.  Repositories can reside in different hosts or in a same host.
+Once a repository is pulling/pushing with another one, you can `go get`
+or `go put` or `go set`, `go reset` any file or directory under it to
+synchronize only a subset of the whole content.  Technically speaking,
+`go` is a thin wrapper for the `rsync` command with a little addition of
+pathname and SSH key handlings that will quite annoy us if done manually
+with our hands everytime.

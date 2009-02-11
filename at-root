@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# at-root -- move up to the root of this repository
+
+# cd to repository root
+if ! [ -d .go ]; then
+    root=$(
+    set -e
+    # find root
+    until [ -d .go -o "$PWD" = / ]
+    do cd ..
+    done
+    # print if found
+    [ -d .go ] && pwd || false
+    ) || err 3 "not in a repository"
+    cd "$root"
+fi

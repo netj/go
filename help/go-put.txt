@@ -1,0 +1,11 @@
+Description: Send partial updates to best friend
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+put -- Send updates of given files to our best friend.
+
+Usage: go put [PATH...]
+
+  If PATH is omitted, the working directory will be used.
+
+See also: go push

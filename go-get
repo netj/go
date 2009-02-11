@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# go get -- retrieve updates to selected data from last peer
+set -e
+
+. at-root
+. want-paths+peer
+
+msg 1 "getting from $peer ..."
+msg 3 " $*"
+xfer --update $peer:"`encode-args "${paths[@]}"`" .

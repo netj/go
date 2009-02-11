@@ -1,0 +1,7 @@
+Description: List friend repositories
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+ls -- List all friend repositories.
+
+Usage: go ls

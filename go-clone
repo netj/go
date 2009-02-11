@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# go clone -- trim this repository based on given peer's
+set -e
+
+. at-root
+. want-peers
+
+if [ $# -gt 1 ]; then
+    err 2 "only one peer should be specified"
+fi
+
+peer=$1; shift
+msg 1 "trimming here based on $peer ..."
+xfer --delete-after $peer:. .

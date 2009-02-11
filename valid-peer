@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# valid-peer -- check if given peer is ok
+set -e
+
+. at-root
+
+for peer in "$@"; do
+    [ -d .go/local/$peer ] || err 2 "$peer: unknown peer"
+done

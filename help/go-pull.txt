@@ -1,0 +1,7 @@
+Description: Receive updates from friends
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+pull -- Receive updated contents from friends.
+
+Usage: go pull [PEER...]

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# normalized-path -- normalize given path
+
+# tested with
+# <<<"/a//.//..//./b/./c//./d/../", expected to be "/b/c"
+# <<<"/root/a/x/y/z/../../../..", expected to be "/root"
+
+for a in "$@"; do
+    tr / '\n' <<<"$a" |
+    {
+        p=
+        while read -r; do
+            n=$REPLY
+            case "$n" in
+                "" | .) ;;
+                ..) p=${p%/*} ;;
+                *) p="$p/$n" ;;
+            esac
+        done
+        echo "${p:-/}"
+    }
+done

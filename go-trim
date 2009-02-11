@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# go trim -- trim given peers' based on this repository
+set -e
+
+. at-root
+. want-peers
+
+for peer in "$@"; do
+    msg 1 "trimming $peer ..."
+    xfer --delete-after . $peer:.
+done

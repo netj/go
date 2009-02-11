@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# go help -- show usage
+set -e
+
+Self=`readlink -f "$0"`
+Base=`dirname "$Self"`
+cd "$Base"
+
+header() { sed -n '1,/^$/p' | grep -i "^$1:" | sed "s:^$1\\: *::i"; }
+body() { sed '1,/^$/d'; }
+
+if [ $# -eq 0 ]; then
+    cat <<EOF
+go/고/庫 -- A simple tool for replicating unversioned data repositories
+
+Usage: go COMMAND [ARG...]
+EOF
+    echo -n " where "
+    # list of commands
+    body <help/COMMAND.txt
+    cat <<EOF
+ 
+Run \`go help COMMAND' for detailed usage of each COMMAND,
+ or \`go help start' for a gentle introduction to start go.
+EOF
+else
+    show() {
+        local doc=$1
+        if [ -r "$doc" ]; then
+            body <"$doc"
+        else
+            false
+        fi
+    }
+    for topic in "$@"; do
+        if ! show "help/$topic.txt"; then
+            if ! show "help/go-$topic.txt"; then
+                err 3 "help: $topic: documentation not available"
+            fi
+        fi
+    done
+fi

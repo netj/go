@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# go friends -- exchange key with given peers
+set -e
+
+. at-root
+me=`cat .go/local/name`
+
+for node in "$@"; do
+    host=${node%%:*}
+    path=${node#*:}
+
+    # skip if we are already friends
+    [ ! -d .go/local/$host ] || err 2 "$host: already a known peer" || continue
+
+    # remember each others' name and key
+    msg 1 "going friends with $host ..."
+    msg 2 "telling $host to remember my identity ..."
+    cat .go/local/id_rsa.pub |
+    ssh $host "
+        set -e
+        cd `printf %q "$path"` >/dev/null
+        cat .go/local/name
+        cat .go/local/id_rsa.pub
+        go remember $me .go/local/id_rsa
+    " |
+    {
+        read peer
+        go remember $peer .go/local/id_rsa
+    }
+done

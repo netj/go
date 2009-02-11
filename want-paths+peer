@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# want-paths+peer -- make sure args have paths inside the repository,
+#                    and also a peer to talk to
+# 
+# NOTE: variables paths, peer are set by this script
+
+# we want to use the last peer
+peer=`last-peer` || err 4 "go make some friends: \`go help friends'"
+
+# transfer current directory by default
+[ $# -gt 0 ] || set -- .
+
+# gather paths from arguments
+paths=()
+for p in "$@"; do
+    relp=`absolute-path "$p" "${OLDPWD:-$PWD}"`
+    relp=`normalized-path "$relp"`
+    case "$relp" in
+        "$PWD")
+        relp=.
+        ;;
+        "$PWD"/*)
+        relp=${relp#$PWD/}
+        ;;
+        *)
+        err 2 "$p: points outside the repository"
+        ;;
+    esac
+    paths=("${paths[@]}" "$relp")
+done

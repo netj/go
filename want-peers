@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# want-peers -- make sure args have peer names or use the last peer
+# 
+# NOTE: last-peer is pushed as an argument if none were given
+
+# get last peer if none given
+if [ $# -eq 0 ] && ! set -- `last-peer`; then
+    msg 0 "specify some peers among the following:"
+    go ls
+    exit 2
+fi
+
+# see if given peers are valid
+valid-peer "$@"
+
+# set last peer
+if [ $# -eq 1 ]; then
+    last-peer "$1"
+fi

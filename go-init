@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# go init -- initialize metadata for a go repository here
+set -e
+
+! [ -d .go ] || err 4 "this place is already a go repository"
+
+# TODO: be interactive
+me=$1; shift || me=$LOGNAME@$HOSTNAME
+
+msg 1 "creating a metadata directory at .go/"
+mkdir -p .go/local
+
+msg 1 "recording my name, $me at .go/local/name"
+echo $me >.go/local/name
+
+msg 1 "creating my identity"
+quiet=-q; be-quiet 2 || quiet=
+ssh-keygen $opts -t rsa -C "$me" -N "" -f .go/local/id_rsa
+
+msg 1 "creating a default rules file"
+: >.go/rules
+# touching .go/rules to the past since we want the most recent one to survive
+touch -d 2001-01-01 .go/rules

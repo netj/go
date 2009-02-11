@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# go/고/庫 -- A simple tool for replicating unversioned data repositories
+# Created: 2008-03-10
+# First written by Jaeho Shin <netj@sparcs.org>.
+set -e
+
+Self=`readlink -f "$0"`
+Base=`dirname "$Self"`
+PATH=$Base:$PATH
+
+# invoked over ssh
+if [ -n "$SSH_ORIGINAL_COMMAND" ]; then
+    args=()
+    while read -d ' '; do
+        args=("${args[@]}" "$REPLY")
+    done <<<"$SSH_ORIGINAL_COMMAND "
+    SSH_ORIGINAL_COMMAND=
+    set -- "${args[@]}"
+    unset args
+fi
+
+# save stdout at fd 3 for verbose messages
+exec 3>&1
+
+# process options
+: ${GO_VERBOSE:=1}
+export GO_VERBOSE
+while getopts "vq" o; do
+    case "$o" in
+        v)
+        let GO_VERBOSE++
+        ;;
+        q)
+        GO_VERBOSE=0
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+# get command and run if available
+Cmd=$1; shift || true
+if type go-$Cmd &>/dev/null; then
+    exec go-$Cmd "$@"
+else
+    [ -z "$Cmd" ] || err 0 "$Cmd: unknown command"
+    msg 0 "Try \`go help' for usage."
+fi

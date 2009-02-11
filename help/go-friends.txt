@@ -1,0 +1,11 @@
+Description: Start being friends with another repository
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+friends -- Start a friendship relation with another repository.
+
+Usage: go friends PEER
+
+PEER ...
+
+See also: go ls, go strangers

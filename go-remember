@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# go remember -- authorize & remember given peer's key
+set -e
+
+peer=$1; shift
+mykeypath=$1; shift
+peerkey=`cat`
+
+. at-root
+! valid-peer $peer 2>/dev/null || err 2 "$peer: already a known peer"
+
+msg 2 "remembering $peer's identity ..."
+mkdir -p ~/.ssh .go/local/$peer
+
+# authorize peer's key
+echo "no-port-forwarding,no-agent-forwarding,no-pty,no-X11-forwarding,command=\"cd '${PWD//"'"/"'\\\''"}' && exec go\" $peerkey" |
+tee -a ~/.ssh/authorized_keys .go/local/$peer/authorized_keys >/dev/null
+
+# remember the key i've exchanged
+ln -f $mykeypath .go/local/$peer/id_rsa

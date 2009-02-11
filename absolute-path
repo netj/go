@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# absolute-path -- make given path absolute
+path=$1
+base=${2:-$PWD}
+case "$path" in
+    /*) echo "$path" ;;
+    *)  echo "$base/$path" ;;
+esac

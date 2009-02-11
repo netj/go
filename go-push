@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# go push -- send fresh data to given peers
+set -e
+
+. at-root
+. want-peers
+
+# send data to peers
+for peer in "$@"; do
+    msg 1 "pushing to $peer ..."
+    xfer --update . $peer:.
+done

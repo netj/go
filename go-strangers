@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# go strangers -- revoke all information exchanged among given peers
+set -e
+
+. at-root
+me=`cat .go/local/name`
+
+for peer in "$@"; do
+    [ -d .go/local/$peer ] || err 2 "$peer: unknown peer" || continue
+    # forget each other
+    msg 1 "going strangers with $peer ..."
+    msg 2 "telling $peer to forget me ..."
+    tell $peer forget $me
+    go forget $peer
+done

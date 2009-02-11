@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# last-peer -- get or set last used peer
+set -e
+
+. at-root
+
+link=.go/local/last-peer
+if [ $# -eq 0 ]; then
+    # get last peer
+    if ! lastpeer=`readlink $link`; then
+        if [ `go ls | wc -l` -eq 1 ]; then
+            lastpeer=`go ls`
+        else
+            false
+        fi
+    fi
+    echo "$lastpeer"
+else
+    # set last peer
+    lastpeer=$1
+    ln -sfn "$lastpeer" $link
+fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# go reset -- retrieve selected data from last peer
+set -e
+
+. at-root
+. want-paths+peer
+
+msg 1 "resetting to $peer ..."
+msg 3 " $*"
+xfer --delete-after $peer:"`encode-args "${paths[@]}"`" .

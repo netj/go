@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# go pull -- retrieve fresh data from given peers
+set -e
+
+. at-root
+. want-peers
+
+# retrieve data from peers
+for peer in "$@"; do
+    msg 1 "pulling from $peer ..."
+    xfer --update $peer:. .
+done

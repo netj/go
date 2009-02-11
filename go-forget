@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# go forget -- forget given peer
+set -e
+
+peer=$1; shift
+
+. at-root
+valid-peer $peer
+key=`cat .go/local/$peer/authorized_keys` || err 3 "$peer: not authorized perhaps?"
+
+msg 2 "forgetting $peer's identity ..."
+
+cat ~/.ssh/authorized_keys | grep -v "$key" >~/.ssh/authorized_keys.$$
+mv -f ~/.ssh/authorized_keys.$$ ~/.ssh/authorized_keys
+rm -rf .go/local/$peer

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# be-quiet -- check verbosity against given level for being quite or noisy
+
+[ ${GO_VERBOSE:-0} -lt ${1:-1} ]

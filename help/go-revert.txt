@@ -1,0 +1,9 @@
+Description: Remove partial differences on self
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+revert -- Make contents of given paths exactly same to those of best friend.
+
+Usage: go revert [PATH...]
+
+See also: go clone, go set

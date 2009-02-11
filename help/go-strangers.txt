@@ -1,0 +1,9 @@
+Description: Stop being friends with another repository
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+strangers -- Stop friendship relation with another friend repository.
+
+Usage: go strangers PEER
+
+PEER ...

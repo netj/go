@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# go put -- send updates to selected data to last peer
+set -e
+
+. at-root
+. want-paths+peer
+
+msg 1 "putting to $peer ..."
+msg 3 " $*"
+xfer --update "${paths[@]}" $peer:.

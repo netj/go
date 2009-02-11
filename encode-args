@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# encode-args -- encode arguments into a form decodable with `read -d ' '`
+
+encode1() {
+    echo -n "`sed -e 's/[ \]/\\\\&/g' <<<"$1"`"
+}
+
+encode1 "$1"; shift
+for i in "$@"; do
+    echo -n " "
+    encode1 "$i"
+done
+echo

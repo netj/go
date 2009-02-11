@@ -1,0 +1,7 @@
+Description: Remove differences on self
+Author: Jaeho Shin <netj@sparcs.org>
+Created: 2009-01-23
+
+clone -- Make contents of myself exactly same to a given friend.
+
+Usage: go clone [PEER]
